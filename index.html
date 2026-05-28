@@ -871,12 +871,21 @@
       50% { box-shadow: 0 2px 25px rgba(251,191,36,0.6); }
     }
 
+    /* Page wrapper — GSAP moves this with translateY to simulate scroll */
+    .page-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+    }
+
     /* Splash / entry screen */
-    /* ===== SPLASH — night sky overlay ===== */
+    /* ===== SPLASH — night sky (in-flow, part of page) ===== */
     .splash-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 9999;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -884,6 +893,9 @@
       text-align: center;
       padding: 2rem;
       background: linear-gradient(180deg, #0d0121 0%, #1a0533 30%, #2d1250 60%, #4c1d95 100%);
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
     }
     .splash-overlay.gone {
       display: none;
@@ -963,7 +975,9 @@
 <body>
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
-  <!-- Splash — night sky overlay -->
+  <div class="page-wrap" id="pageWrap">
+
+  <!-- Splash — night sky (first section) -->
   <div class="splash-overlay" id="splashScreen">
     <div class="splash-stars"></div>
     <div class="splash-lanterns">
@@ -1738,6 +1752,8 @@
 
   </div>
 
+  </div><!-- /page-wrap -->
+
   <div id="yt-player-wrap" style="position:fixed;top:-200px;left:-200px;width:1px;height:1px;overflow:hidden;pointer-events:none;"></div>
   <button class="music-btn" id="musicBtn" aria-label="Reproducir m&uacute;sica" onclick="toggleMusic()">&#x1F3B5;</button>
 
@@ -1802,6 +1818,7 @@
     // Enter site — triggered by splash button tap (direct user gesture)
     function enterSite(){
       var splash=document.getElementById('splashScreen');
+      var wrap=document.getElementById('pageWrap');
       // Start music immediately from user tap
       if(ytReady && !mPlaying){
         mPlaying=true;
@@ -1812,14 +1829,23 @@
       }
       document.getElementById('splashBtn').disabled=true;
 
-      // GSAP slide up — GPU-accelerated, smooth on mobile
-      gsap.to(splash,{
-        yPercent:-100,
-        duration:1.4,
+      // GSAP moves the wrapper UP by splash height — looks like scrolling down
+      // translateY is GPU-accelerated = buttery smooth on mobile
+      var splashH=splash.offsetHeight;
+      gsap.to(wrap,{
+        y:-splashH,
+        duration:1.8,
         ease:'power2.inOut',
-        onComplete:function(){ splash.classList.add('gone'); }
+        onComplete:function(){
+          // Remove splash & reset wrapper so page is normal
+          splash.classList.add('gone');
+          gsap.set(wrap,{y:0});
+          document.body.style.overflow='';
+        }
       });
     }
+    // Body overflow hidden — no scroll until animation completes
+    document.body.style.overflow='hidden';
 
     function toggleMusic(){
       var btn=document.getElementById('musicBtn');
