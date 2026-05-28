@@ -563,7 +563,7 @@
       z-index: 2;
     }
 
-    .rapunzel-full svg { width: clamp(160px, 45vw, 200px); max-width: 100%; height: auto; }
+    .rapunzel-full svg { width: clamp(140px, 40vw, 180px); max-width: 100%; height: auto; }
 
     /* ===== COUNTDOWN ===== */
     .countdown-section {
@@ -1372,203 +1372,76 @@
 
     <!-- ===== BABY RAPUNZEL FULL ILLUSTRATION ===== -->
     <div class="rapunzel-full" aria-hidden="true">
-      <svg viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- === HAIR (behind body) === -->
-        <!-- Main flowing hair cascade — right side braid -->
-        <path d="M142 95 Q155 115 158 140 Q160 165 152 190 Q145 215 155 240 Q160 260 158 275" stroke="#f59e0b" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <path d="M142 95 Q157 118 160 143 Q162 168 155 193 Q148 218 158 243 Q163 262 160 278" stroke="#fbbf24" stroke-width="7" fill="none" stroke-linecap="round"/>
-        <path d="M140 97 Q153 112 156 138 Q158 160 150 185 Q143 210 152 235 Q156 252 155 270" stroke="#fde68a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
-        <!-- Loose flowing strands behind body left -->
-        <path d="M62 88 Q50 110 48 135 Q47 155 52 170" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
-        <path d="M65 92 Q55 115 54 138 Q53 158 56 172" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <!-- Hair volume behind head -->
-        <path d="M58 78 Q48 50 100 35 Q152 50 142 78" fill="#f59e0b"/>
-        <path d="M60 82 Q52 55 100 42 Q148 55 140 82" fill="#fbbf24"/>
-        <!-- Hair strand wisps at sides -->
-        <path d="M60 82 Q50 100 55 125 Q58 140 54 155" stroke="#fbbf24" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <path d="M140 82 Q150 100 145 125" stroke="#fbbf24" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <!-- Hair highlight streaks -->
-        <path d="M75 48 Q85 42 95 48" stroke="#fef3c7" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
-        <path d="M105 45 Q115 40 125 47" stroke="#fef3c7" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
-        <path d="M80 55 Q90 50 100 55" stroke="#fef3c7" stroke-width="1" fill="none" opacity="0.3" stroke-linecap="round"/>
-
-        <!-- === DRESS / BODY === -->
-        <!-- Dress base -->
-        <path d="M65 148 Q100 132 135 148 L132 210 Q100 222 68 210Z" fill="#c084fc"/>
-        <!-- Dress inner layer (lighter) -->
-        <path d="M70 152 Q100 140 130 152 L128 205 Q100 215 72 205Z" fill="#d8b4fe"/>
-        <!-- Dress front panel -->
-        <path d="M80 155 Q100 148 120 155 L118 200 Q100 208 82 200Z" fill="#e9d5ff" opacity="0.5"/>
-        <!-- Corset lacing -->
-        <path d="M95 155 L105 160 M95 163 L105 168 M95 171 L105 176 M95 179 L105 184" stroke="#a855f7" stroke-width="1" opacity="0.5" stroke-linecap="round"/>
-        <line x1="100" y1="153" x2="100" y2="188" stroke="#c084fc" stroke-width="0.8" opacity="0.4"/>
-        <!-- Ribbon bow at waist -->
-        <path d="M90 152 Q85 148 82 152 Q85 156 90 152Z" fill="#a855f7" opacity="0.6"/>
-        <path d="M110 152 Q115 148 118 152 Q115 156 110 152Z" fill="#a855f7" opacity="0.6"/>
-        <circle cx="100" cy="152" r="2.5" fill="#a855f7" opacity="0.5"/>
-        <!-- Dress hem detail -->
-        <path d="M68 208 Q75 212 82 208 Q90 204 100 208 Q110 212 118 208 Q125 204 132 208" stroke="#e9d5ff" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"/>
-        <!-- Sleeves (puffed) -->
-        <ellipse cx="66" cy="155" rx="14" ry="10" fill="#d8b4fe" transform="rotate(-10 66 155)"/>
-        <ellipse cx="134" cy="155" rx="14" ry="10" fill="#d8b4fe" transform="rotate(10 134 155)"/>
-        <path d="M56 152 Q60 148 64 152" stroke="#e9d5ff" stroke-width="1" fill="none" opacity="0.6"/>
-        <path d="M136 152 Q140 148 144 152" stroke="#e9d5ff" stroke-width="1" fill="none" opacity="0.6"/>
-        <!-- Arms -->
-        <path d="M54 158 Q50 168 52 175" stroke="#fef3c7" stroke-width="7" fill="none" stroke-linecap="round"/>
-        <path d="M146 158 Q150 168 148 175" stroke="#fef3c7" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <svg viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Dress / body -->
+        <path d="M65 140 Q100 125 135 140 L130 195 Q100 205 70 195Z" fill="#d8b4fe"/>
+        <path d="M75 150 Q100 140 125 150 L122 185 Q100 192 78 185Z" fill="#e9d5ff" opacity="0.6"/>
+        <!-- Sleeves -->
+        <ellipse cx="68" cy="148" rx="12" ry="8" fill="#c084fc" opacity="0.5" transform="rotate(-15 68 148)"/>
+        <ellipse cx="132" cy="148" rx="12" ry="8" fill="#c084fc" opacity="0.5" transform="rotate(15 132 148)"/>
         <!-- Hands -->
-        <circle cx="52" cy="177" r="5.5" fill="#fef3c7"/>
-        <circle cx="148" cy="177" r="5.5" fill="#fef3c7"/>
-        <!-- Fingers hint -->
-        <circle cx="49" cy="180" r="2" fill="#fef3c7"/>
-        <circle cx="55" cy="181" r="2" fill="#fef3c7"/>
-        <circle cx="145" cy="180" r="2" fill="#fef3c7"/>
-        <circle cx="151" cy="181" r="2" fill="#fef3c7"/>
-
-        <!-- === HEAD === -->
+        <circle cx="56" cy="155" r="6" fill="#fef3c7"/>
+        <circle cx="144" cy="155" r="6" fill="#fef3c7"/>
+        <!-- Head -->
         <circle cx="100" cy="95" r="38" fill="#fef3c7"/>
-        <!-- Ear hints -->
-        <ellipse cx="62" cy="98" rx="4" ry="6" fill="#fce7b2" opacity="0.5"/>
-        <ellipse cx="138" cy="98" rx="4" ry="6" fill="#fce7b2" opacity="0.5"/>
-
-        <!-- === FACE === -->
-        <!-- Eyes — large, expressive -->
-        <ellipse cx="85" cy="94" rx="7" ry="8" fill="white"/>
-        <ellipse cx="115" cy="94" rx="7" ry="8" fill="white"/>
-        <!-- Iris -->
-        <ellipse cx="87" cy="95" rx="5" ry="6" fill="#6d28d9"/>
-        <ellipse cx="113" cy="95" rx="5" ry="6" fill="#6d28d9"/>
-        <!-- Inner iris gradient -->
-        <ellipse cx="87" cy="95" rx="3.5" ry="4.5" fill="#7c3aed" opacity="0.7"/>
-        <ellipse cx="113" cy="95" rx="3.5" ry="4.5" fill="#7c3aed" opacity="0.7"/>
-        <!-- Pupil -->
-        <ellipse cx="88" cy="95" rx="2.5" ry="3.5" fill="#1a0533"/>
-        <ellipse cx="114" cy="95" rx="2.5" ry="3.5" fill="#1a0533"/>
-        <!-- Eye shine (large + small) -->
-        <circle cx="90" cy="92" r="2.2" fill="white" opacity="0.95"/>
-        <circle cx="116" cy="92" r="2.2" fill="white" opacity="0.95"/>
-        <circle cx="86" cy="97" r="1" fill="white" opacity="0.6"/>
-        <circle cx="112" cy="97" r="1" fill="white" opacity="0.6"/>
-        <!-- Upper eyelids -->
-        <path d="M77 90 Q85 85 93 90" stroke="#5b21b6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M107 90 Q115 85 123 90" stroke="#5b21b6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <!-- Eyelashes (multiple) -->
-        <path d="M77 89 L74 85" stroke="#5b21b6" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M80 87 L78 83" stroke="#5b21b6" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M84 86 L83 82" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
-        <path d="M123 89 L126 85" stroke="#5b21b6" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M120 87 L122 83" stroke="#5b21b6" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M116 86 L117 82" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
-        <!-- Lower lash line hint -->
-        <path d="M80 100 Q85 102 92 100" stroke="#c4b5fd" stroke-width="0.5" fill="none" opacity="0.4"/>
-        <path d="M108 100 Q115 102 120 100" stroke="#c4b5fd" stroke-width="0.5" fill="none" opacity="0.4"/>
-        <!-- Eyebrows -->
-        <path d="M78 82 Q85 78 92 81" stroke="#d97706" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <path d="M108 81 Q115 78 122 82" stroke="#d97706" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <!-- Nose -->
-        <path d="M98 100 Q100 104 102 100" stroke="#e8c4a0" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
-        <!-- Mouth — sweet smile -->
-        <path d="M90 110 Q95 114 100 115 Q105 114 110 110" stroke="#e879a0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        <!-- Upper lip -->
-        <path d="M92 110 Q96 108 100 109 Q104 108 108 110" stroke="#e879a0" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.4"/>
-        <!-- Lower lip highlight -->
-        <path d="M94 113 Q100 116 106 113" fill="#f9a8d4" opacity="0.25"/>
+        <!-- Hair -->
+        <path d="M62 85 Q55 45 100 35 Q145 45 138 85" fill="#fbbf24"/>
+        <path d="M62 85 Q56 100 65 118" fill="#fbbf24"/>
+        <path d="M138 85 Q144 100 135 118" fill="#fbbf24"/>
+        <!-- Hair braid with flowers -->
+        <path d="M135 118 Q150 140 142 170 Q135 195 148 215" stroke="#fbbf24" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M135 120 Q152 142 145 172 Q138 198 152 218" stroke="#fde68a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <circle cx="148" cy="140" r="5" fill="#f9a8d4"/>
+        <circle cx="148" cy="140" r="2.5" fill="#fde68a" opacity="0.6"/>
+        <circle cx="140" cy="165" r="5" fill="#c084fc" opacity="0.8"/>
+        <circle cx="140" cy="165" r="2.5" fill="#fde68a" opacity="0.5"/>
+        <circle cx="145" cy="190" r="5" fill="#fbcfe8"/>
+        <circle cx="145" cy="190" r="2.5" fill="#fbbf24" opacity="0.5"/>
+        <circle cx="148" cy="210" r="4" fill="#f9a8d4" opacity="0.7"/>
+        <!-- Eyes -->
+        <ellipse cx="87" cy="95" rx="5.5" ry="6" fill="#7e22ce" opacity="0.8"/>
+        <ellipse cx="113" cy="95" rx="5.5" ry="6" fill="#7e22ce" opacity="0.8"/>
+        <circle cx="89" cy="93" r="2" fill="white" opacity="0.9"/>
+        <circle cx="115" cy="93" r="2" fill="white" opacity="0.9"/>
+        <!-- Eyelashes -->
+        <path d="M80 89 L78 86" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
+        <path d="M84 87 L83 84" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
+        <path d="M120 89 L122 86" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
+        <path d="M116 87 L117 84" stroke="#5b21b6" stroke-width="1" stroke-linecap="round"/>
+        <!-- Mouth -->
+        <path d="M92 108 Q100 115 108 108" stroke="#e879a0" stroke-width="2" fill="none" stroke-linecap="round"/>
         <!-- Blush -->
-        <ellipse cx="76" cy="106" rx="7" ry="4.5" fill="#fbcfe8" opacity="0.45"/>
-        <ellipse cx="124" cy="106" rx="7" ry="4.5" fill="#fbcfe8" opacity="0.45"/>
-
-        <!-- === HAIR (front, over forehead) === -->
-        <path d="M62 85 Q55 50 100 38 Q145 50 138 85 Q135 78 125 75 Q110 72 100 74 Q90 72 75 75 Q65 78 62 85Z" fill="#fbbf24"/>
-        <!-- Hair parting -->
-        <path d="M100 42 Q100 55 98 70" stroke="#f59e0b" stroke-width="1" fill="none" opacity="0.4"/>
-        <!-- Side bangs -->
-        <path d="M62 85 Q58 75 63 68" stroke="#fde68a" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round"/>
-        <path d="M138 85 Q142 75 137 68" stroke="#fde68a" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round"/>
-        <!-- Hair texture strands on top -->
-        <path d="M72 55 Q80 48 88 55" stroke="#fde68a" stroke-width="1" fill="none" opacity="0.35" stroke-linecap="round"/>
-        <path d="M112 55 Q120 48 128 55" stroke="#fde68a" stroke-width="1" fill="none" opacity="0.35" stroke-linecap="round"/>
-
-        <!-- === BRAID FLOWERS === -->
-        <!-- Flower 1 -->
-        <circle cx="155" cy="135" r="5.5" fill="#f9a8d4"/>
-        <circle cx="150" cy="132" r="3.5" fill="#fbcfe8" opacity="0.7"/>
-        <circle cx="160" cy="132" r="3.5" fill="#fbcfe8" opacity="0.7"/>
-        <circle cx="155" cy="135" r="2.5" fill="#fde68a" opacity="0.8"/>
-        <!-- Flower 2 -->
-        <circle cx="150" cy="165" r="5" fill="#c084fc" opacity="0.85"/>
-        <circle cx="145" cy="162" r="3" fill="#d8b4fe" opacity="0.6"/>
-        <circle cx="155" cy="162" r="3" fill="#d8b4fe" opacity="0.6"/>
-        <circle cx="150" cy="165" r="2.5" fill="#fde68a" opacity="0.7"/>
-        <!-- Flower 3 -->
-        <circle cx="148" cy="195" r="5" fill="#fbcfe8"/>
-        <circle cx="143" cy="192" r="3" fill="#f9a8d4" opacity="0.6"/>
-        <circle cx="153" cy="192" r="3" fill="#f9a8d4" opacity="0.6"/>
-        <circle cx="148" cy="195" r="2.5" fill="#fbbf24" opacity="0.6"/>
-        <!-- Flower 4 -->
-        <circle cx="153" cy="225" r="4.5" fill="#f9a8d4" opacity="0.8"/>
-        <circle cx="153" cy="225" r="2" fill="#fde68a" opacity="0.6"/>
-        <!-- Flower 5 -->
-        <circle cx="156" cy="250" r="4" fill="#c084fc" opacity="0.7"/>
-        <circle cx="156" cy="250" r="2" fill="#fde68a" opacity="0.5"/>
-        <!-- Tiny leaves near flowers -->
-        <ellipse cx="162" cy="138" rx="4" ry="2" fill="#4ade80" opacity="0.5" transform="rotate(30 162 138)"/>
-        <ellipse cx="157" cy="168" rx="3.5" ry="1.5" fill="#4ade80" opacity="0.4" transform="rotate(-20 157 168)"/>
-        <ellipse cx="155" cy="198" rx="3" ry="1.5" fill="#4ade80" opacity="0.4" transform="rotate(25 155 198)"/>
-
-        <!-- === CROWN / TIARA === -->
-        <path d="M72 68 L75 57 L81 64 L87 52 L93 63 L100 48 L107 63 L113 52 L119 64 L125 57 L128 68" stroke="#f59e0b" stroke-width="2.5" fill="#fde68a"/>
-        <!-- Tiara base band -->
-        <path d="M72 68 L128 68" stroke="#f59e0b" stroke-width="2" fill="none"/>
-        <!-- Gems -->
-        <circle cx="100" cy="52" r="3.5" fill="#f59e0b"/>
-        <circle cx="100" cy="52" r="1.8" fill="#fef3c7" opacity="0.7"/>
-        <circle cx="87" cy="56" r="2.2" fill="#f9a8d4" opacity="0.8"/>
-        <circle cx="113" cy="56" r="2.2" fill="#f9a8d4" opacity="0.8"/>
-        <circle cx="75" cy="60" r="1.5" fill="#c084fc" opacity="0.6"/>
-        <circle cx="125" cy="60" r="1.5" fill="#c084fc" opacity="0.6"/>
-
-        <!-- === SUN EMBLEM on dress === -->
-        <circle cx="100" cy="172" r="9" fill="#fde68a" opacity="0.7"/>
-        <circle cx="100" cy="172" r="5" fill="#fbbf24" opacity="0.6"/>
-        <!-- Sun rays -->
-        <line x1="100" y1="161" x2="100" y2="158" stroke="#fbbf24" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
-        <line x1="100" y1="183" x2="100" y2="186" stroke="#fbbf24" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
-        <line x1="109" y1="163" x2="111" y2="160" stroke="#fbbf24" stroke-width="1.2" opacity="0.3" stroke-linecap="round"/>
-        <line x1="91" y1="163" x2="89" y2="160" stroke="#fbbf24" stroke-width="1.2" opacity="0.3" stroke-linecap="round"/>
-        <line x1="109" y1="181" x2="111" y2="184" stroke="#fbbf24" stroke-width="1.2" opacity="0.3" stroke-linecap="round"/>
-        <line x1="91" y1="181" x2="89" y2="184" stroke="#fbbf24" stroke-width="1.2" opacity="0.3" stroke-linecap="round"/>
-
-        <!-- === FEET === -->
-        <ellipse cx="85" cy="214" rx="10" ry="5" fill="#c084fc" opacity="0.5"/>
-        <ellipse cx="115" cy="214" rx="10" ry="5" fill="#c084fc" opacity="0.5"/>
-
-        <!-- === PASCAL on shoulder === -->
-        <ellipse cx="52" cy="146" rx="9" ry="7" fill="#3ec96a" opacity="0.9"/>
-        <circle cx="52" cy="138" r="7.5" fill="#4ade80"/>
-        <circle cx="48" cy="136" r="2.8" fill="white"/>
-        <circle cx="56" cy="136" r="2.8" fill="white"/>
-        <circle cx="49" cy="136" r="1.5" fill="#1a1a2e"/>
-        <circle cx="57" cy="136" r="1.5" fill="#1a1a2e"/>
-        <circle cx="50" cy="135" r="0.7" fill="white" opacity="0.8"/>
-        <circle cx="58" cy="135" r="0.7" fill="white" opacity="0.8"/>
-        <path d="M49 142 Q52 145 55 142" stroke="#166534" stroke-width="1" fill="none" stroke-linecap="round"/>
-        <path d="M61 146 Q67 142 65 136" stroke="#4ade80" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <!-- Pascal feet -->
-        <circle cx="45" cy="151" r="2" fill="#34b860"/>
-        <circle cx="59" cy="151" r="2" fill="#34b860"/>
-
-        <!-- === FLOWERS in hair (left side) === -->
-        <circle cx="68" cy="63" r="5" fill="#f9a8d4" opacity="0.85"/>
-        <circle cx="64" cy="60" r="3" fill="#fbcfe8" opacity="0.6"/>
-        <circle cx="68" cy="63" r="2.5" fill="#fde68a" opacity="0.65"/>
-        <circle cx="75" cy="58" r="3.5" fill="#c084fc" opacity="0.6"/>
-        <circle cx="75" cy="58" r="1.8" fill="#fde68a" opacity="0.5"/>
-
-        <!-- === SPARKLE ACCENTS === -->
-        <text x="28" y="80" font-size="10" opacity="0.4">&#x2728;</text>
-        <text x="170" y="75" font-size="10" opacity="0.4">&#x2728;</text>
-        <text x="40" y="230" font-size="8" opacity="0.3">&#x2728;</text>
-        <text x="170" y="200" font-size="7" opacity="0.3">&#x2728;</text>
+        <circle cx="78" cy="104" r="6" fill="#fbcfe8" opacity="0.5"/>
+        <circle cx="122" cy="104" r="6" fill="#fbcfe8" opacity="0.5"/>
+        <!-- Nose -->
+        <circle cx="100" cy="100" r="1.5" fill="#e8c4a0" opacity="0.4"/>
+        <!-- Crown / tiara -->
+        <path d="M72 68 L76 58 L82 65 L88 53 L94 65 L100 50 L106 65 L112 53 L118 65 L124 58 L128 68" stroke="#fbbf24" stroke-width="2" fill="#fde68a"/>
+        <circle cx="100" cy="53" r="3" fill="#f59e0b"/>
+        <circle cx="88" cy="58" r="2" fill="#f9a8d4" opacity="0.7"/>
+        <circle cx="112" cy="58" r="2" fill="#f9a8d4" opacity="0.7"/>
+        <!-- Sun emblem on dress -->
+        <circle cx="100" cy="165" r="8" fill="#fde68a" opacity="0.7"/>
+        <circle cx="100" cy="165" r="4" fill="#fbbf24" opacity="0.5"/>
+        <!-- Feet -->
+        <ellipse cx="85" cy="200" rx="10" ry="5" fill="#d8b4fe" opacity="0.6"/>
+        <ellipse cx="115" cy="200" rx="10" ry="5" fill="#d8b4fe" opacity="0.6"/>
+        <!-- Pascal on shoulder -->
+        <ellipse cx="55" cy="132" rx="10" ry="8" fill="#4ade80" opacity="0.9"/>
+        <circle cx="55" cy="124" r="8" fill="#4ade80"/>
+        <circle cx="51" cy="122" r="3" fill="white"/>
+        <circle cx="59" cy="122" r="3" fill="white"/>
+        <circle cx="52" cy="122" r="1.5" fill="#1a1a2e"/>
+        <circle cx="60" cy="122" r="1.5" fill="#1a1a2e"/>
+        <path d="M52 128 Q55 131 58 128" stroke="#166534" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <path d="M65 132 Q72 128 70 122" stroke="#4ade80" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Flower in hair -->
+        <circle cx="72" cy="62" r="4" fill="#f9a8d4" opacity="0.8"/>
+        <circle cx="72" cy="62" r="2" fill="#fde68a" opacity="0.6"/>
+        <!-- Stars around -->
+        <text x="30" y="80" font-size="10" opacity="0.4">&#x2728;</text>
+        <text x="160" y="75" font-size="10" opacity="0.4">&#x2728;</text>
+        <text x="45" y="210" font-size="8" opacity="0.3">&#x2728;</text>
       </svg>
     </div>
 
