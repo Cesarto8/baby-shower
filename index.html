@@ -65,7 +65,7 @@
 
     /* ===== CARD ===== */
     .card {
-      width: 100%; max-width: 430px;
+      width: 100%;
       background: linear-gradient(180deg,
         #2d1250 0%,
         #2d1250 18%,
@@ -84,6 +84,10 @@
       position: relative;
       overflow-x: hidden;
       box-shadow: 0 0 60px rgba(100, 40, 150, 0.15);
+    }
+
+    @media (min-width: 600px) {
+      .card { max-width: 430px; }
     }
 
     .deco { position: absolute; pointer-events: none; }
@@ -1387,21 +1391,30 @@
       </div>
 
       <div class="gift-card">
-        <p class="gc-title">&#x1F4B3; Transferencia Bancaria</p>
+        <p class="gc-title">&#x1F4B3; Transferencia / Tarjeta</p>
         <div class="xfer-box">
           <div class="xfer-row">
             <span class="xfer-lbl">Banco</span>
-            <span class="xfer-val">BBVA</span>
+            <span class="xfer-val">Banamex</span>
           </div>
           <div class="xfer-row">
             <span class="xfer-lbl">Titular</span>
-            <span class="xfer-val">Nombre Completo</span>
+            <span class="xfer-val">Humberto Valencia Becerra</span>
+          </div>
+          <div class="xfer-row">
+            <span class="xfer-lbl">Tarjeta</span>
+            <div style="display:flex;align-items:center;gap:0.25rem;">
+              <span class="xfer-val" id="tarjeta">5204 1662 8740 6898</span>
+              <button type="button" class="copy-btn" aria-label="Copiar Tarjeta" onclick="copyText('tarjeta')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
           </div>
           <div class="xfer-row">
             <span class="xfer-lbl">CLABE</span>
             <div style="display:flex;align-items:center;gap:0.25rem;">
-              <span class="xfer-val" id="clabe">012345678901234567</span>
-              <button type="button" class="copy-btn" aria-label="Copiar CLABE" onclick="copyClabe()">
+              <span class="xfer-val" id="clabe">002396702272299918</span>
+              <button type="button" class="copy-btn" aria-label="Copiar CLABE" onclick="copyText('clabe')">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
               </button>
             </div>
@@ -1487,10 +1500,10 @@
       u(); setInterval(u, 1000);
     })();
 
-    function copyClabe() {
-      var t = document.getElementById('clabe').textContent;
+    function copyText(id) {
+      var t = document.getElementById(id).textContent.replace(/\s/g, '');
       navigator.clipboard.writeText(t).then(function () {
-        var b = document.querySelector('[aria-label="Copiar CLABE"]');
+        var b = document.getElementById(id).closest('.xfer-row').querySelector('.copy-btn');
         var o = b.innerHTML;
         b.innerHTML = '<span style="font-size:0.65rem;color:#a855f7;">&#x2705;</span>';
         setTimeout(function () { b.innerHTML = o; }, 1500);
