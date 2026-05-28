@@ -32,14 +32,17 @@
       font-family: 'Poppins', system-ui, sans-serif;
       color: var(--td);
       background: linear-gradient(180deg,
-        #1a0533 0%,
-        #2d1250 10%,
-        #3b1764 25%,
-        #5b21b6 40%,
-        #7c3aed 55%,
-        #a78bfa 70%,
-        #c4b5fd 80%,
-        #e2d0f0 90%,
+        #0d0121 0%,
+        #150835 8%,
+        #1a0533 15%,
+        #2d1250 28%,
+        #3b1764 40%,
+        #5b21b6 55%,
+        #7c3aed 65%,
+        #a78bfa 75%,
+        #c4b5fd 83%,
+        #dfc8f5 90%,
+        #ede0f7 95%,
         #f3e8ff 100%
       );
       background-attachment: fixed;
@@ -48,6 +51,67 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Animated starfield background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 8%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 3%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 12%, rgba(251,191,36,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 85% 7%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 18%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 60% 22%, rgba(251,191,36,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 48% 28%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 32%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 38%, rgba(251,191,36,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 42% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 73% 42%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 48%, rgba(255,255,255,0.4) 0%, transparent 100%);
+      animation: twinkle-stars 4s ease-in-out infinite alternate;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 18% 6%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 52% 9%, rgba(251,191,36,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 82% 4%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 37% 14%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 68% 19%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 12% 24%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 45% 27%, rgba(251,191,36,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 76% 30%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 28% 33%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 58% 36%, rgba(251,191,36,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 3% 43%, rgba(251,191,36,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 46%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 52%, rgba(251,191,36,0.4) 0%, transparent 100%);
+      animation: twinkle-stars 5s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes twinkle-stars {
+      0% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+      100% { opacity: 0.6; }
     }
 
     a:focus-visible, button:focus-visible {
@@ -82,6 +146,7 @@
         #faf5ff 100%
       );
       position: relative;
+      z-index: 1;
       overflow-x: hidden;
       box-shadow: 0 0 60px rgba(100, 40, 150, 0.15);
     }
@@ -1347,7 +1412,7 @@
       <div class="date-display">
         <div class="date-side">
           <div class="date-day">Domingo</div>
-          <div class="date-time">14H00</div>
+          <div class="date-time">14:00</div>
         </div>
         <div class="date-big">14</div>
         <div class="date-side">
@@ -1674,6 +1739,7 @@
 
   </div>
 
+  <div id="yt-player-wrap" style="position:fixed;top:-200px;left:-200px;width:1px;height:1px;overflow:hidden;pointer-events:none;"></div>
   <button class="music-btn" id="musicBtn" aria-label="Reproducir m&uacute;sica" onclick="toggleMusic()">&#x1F3B5;</button>
 
   <script>
@@ -1700,91 +1766,62 @@
       });
     }
 
-    // ===== MUSIC BOX (Disney-style) =====
-    var mCtx=null,mPlaying=false,mLoop=null;
-    var BT=0.48;
+    // ===== YOUTUBE MUSIC =====
+    var ytPlayer=null,mPlaying=false,ytReady=false,ytPendingPlay=false;
+    var YT_VOL=15; // volume 0-100 (low)
 
-    function mNote(freq,start,dur,vol,type){
-      if(!freq||!mCtx)return;
-      var o=mCtx.createOscillator(),g=mCtx.createGain();
-      o.type=type||'sine';o.frequency.value=freq;
-      g.gain.setValueAtTime(0,start);
-      g.gain.linearRampToValueAtTime(vol||0.1,start+0.015);
-      g.gain.exponentialRampToValueAtTime(0.001,start+dur);
-      o.connect(g);g.connect(mCtx.destination);
-      o.start(start);o.stop(start+dur+0.05);
-      // shimmer overtone
-      var o2=mCtx.createOscillator(),g2=mCtx.createGain();
-      o2.type='sine';o2.frequency.value=freq*2.997;
-      g2.gain.setValueAtTime(0,start);
-      g2.gain.linearRampToValueAtTime((vol||0.1)*0.18,start+0.01);
-      g2.gain.exponentialRampToValueAtTime(0.001,start+dur*0.6);
-      o2.connect(g2);g2.connect(mCtx.destination);
-      o2.start(start);o2.stop(start+dur+0.05);
-    }
+    // Load YouTube IFrame API
+    var tag=document.createElement('script');
+    tag.src='https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
 
-    function playArrangement(){
-      var t=mCtx.currentTime+0.15;
-      // Chord progression: C-G/B-Am-F-C-G-F-G-C (waltz 3/4)
-      var chords=[
-        [[262,330,392],[523,659,784]],  // C
-        [[247,294,392],[587,784,988]],  // G/B
-        [[220,262,330],[523,659,880]],  // Am
-        [[175,220,262],[440,523,698]],  // F
-        [[262,330,392],[523,659,784]],  // C
-        [[196,247,294],[587,784,988]],  // G
-        [[175,220,349],[440,698,523]],  // F
-        [[196,294,392],[587,784,1175]], // G
-        [[262,330,392],[523,659,1047]], // C (resolve)
-        [[262,330,392],[523,659,784]]   // C (end)
-      ];
-      // Melody: sweeping, emotional (note, beat, duration in beats)
-      var mel=[
-        [659,0,2],[784,2,1],[1047,3,2.5],[988,5.5,0.5],
-        [880,6,2],[784,8,1],[880,9,2],[784,11,1],
-        [659,12,2],[523,14,1],[587,15,2],[659,17,1],
-        [698,18,2.5],[880,20.5,0.5],[784,21,2],[698,23,1],
-        [659,24,2],[784,26,1],[1047,27,3],
-        [1175,30,2],[988,32,1],[784,33,2],[880,35,1],
-        [1047,36,2],[880,38,1],[698,39,2],[784,41,1],
-        [659,42,3],[523,45,1],[659,46,2.5],[0,48.5,1.5],
-        [784,50,2],[880,52,1],[1047,53,3],
-        [1175,56,1.5],[1047,57.5,1.5],[880,59,1]
-      ];
-      // Bass notes (one per chord, on beat 1)
-      var bassBeats=[0,6,12,18,24,30,36,42,48,54];
-      var bassNotes=[131,124,110,87,131,98,87,98,131,131];
-
-      // Play arpeggios (waltz pattern per chord, 6 beats each)
-      for(var c=0;c<chords.length;c++){
-        var base=c*6;
-        var lo=chords[c][0], hi=chords[c][1];
-        // Bass
-        mNote(bassNotes[c],t+base*BT,BT*4,0.06,'triangle');
-        // Arpeggio pattern: 1-3-5-3-5-3
-        var pat=[lo[0],lo[1],lo[2],lo[1],lo[2],lo[1]];
-        for(var p=0;p<6;p++){
-          mNote(pat[p],t+(base+p)*BT,BT*1.8,0.04,'sine');
+    window.onYouTubeIframeAPIReady=function(){
+      ytPlayer=new YT.Player('yt-player-wrap',{
+        height:'1',width:'1',
+        videoId:'InTk6QkidRM',
+        playerVars:{
+          autoplay:0,loop:1,
+          playlist:'InTk6QkidRM',
+          controls:0,disablekb:1,
+          modestbranding:1,rel:0,
+          playsinline:1
+        },
+        events:{
+          onReady:function(e){
+            ytReady=true;
+            e.target.setVolume(YT_VOL);
+            // Auto-play on first user interaction
+            var autoStart=function(){
+              if(!mPlaying){toggleMusic();}
+              document.removeEventListener('click',autoStart);
+              document.removeEventListener('touchstart',autoStart);
+              document.removeEventListener('scroll',autoStart);
+            };
+            document.addEventListener('click',autoStart,{once:true});
+            document.addEventListener('touchstart',autoStart,{once:true});
+            document.addEventListener('scroll',autoStart,{once:true});
+          },
+          onStateChange:function(e){
+            // If video ends unexpectedly, restart
+            if(e.data===YT.PlayerState.ENDED && mPlaying){
+              ytPlayer.playVideo();
+            }
+          }
         }
-      }
-      // Play melody
-      for(var m=0;m<mel.length;m++){
-        if(mel[m][0])mNote(mel[m][0],t+mel[m][1]*BT,mel[m][2]*BT,0.13,'sine');
-      }
-      // Total duration
-      var total=60*BT*1000;
-      mLoop=setTimeout(function(){if(mPlaying)playArrangement();},total);
-    }
+      });
+    };
 
     function toggleMusic(){
       var btn=document.getElementById('musicBtn');
-      if(!mCtx)mCtx=new(window.AudioContext||window.webkitAudioContext)();
+      if(!ytReady)return;
       if(mPlaying){
-        mPlaying=false;clearTimeout(mLoop);mCtx.suspend();
+        mPlaying=false;
+        ytPlayer.pauseVideo();
         btn.classList.remove('playing');btn.textContent='\u{1F3B5}';
       }else{
         mPlaying=true;
-        mCtx.resume().then(function(){playArrangement();});
+        ytPlayer.setVolume(YT_VOL);
+        ytPlayer.playVideo();
         btn.classList.add('playing');btn.textContent='\u{1F3B6}';
       }
     }
