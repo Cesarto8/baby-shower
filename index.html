@@ -899,14 +899,14 @@
       position: absolute;
       animation: float var(--dur, 4s) ease-in-out infinite;
       animation-delay: var(--del, 0s);
-      filter: drop-shadow(0 0 8px rgba(251,191,36,0.4));
+      will-change: transform;
     }
     .splash-lantern-main {
       margin-bottom: 1rem;
       animation: float 4s ease-in-out infinite;
       position: relative;
       z-index: 2;
-      filter: drop-shadow(0 0 12px rgba(251,191,36,0.5));
+      will-change: transform;
     }
     .splash-lantern-main svg { width: 50px; height: auto; }
     .splash-title {
@@ -1811,52 +1811,43 @@
         var btn=document.getElementById('musicBtn');
         btn.classList.add('playing');btn.textContent='\u{1F3B6}';
       }
-      // Disable button so animation can't be triggered twice
+      // Disable button
       document.getElementById('splashBtn').disabled=true;
 
-      // GSAP timeline: magical lantern-rise → splash reveal
+      // GSAP parallax scroll-down: everything moves up together
+      // but lanterns rise faster = depth / scroll feel
       var tl=gsap.timeline({
         onComplete:function(){ splash.classList.add('gone'); }
       });
 
-      // 1. Button fades out
-      tl.to('.splash-btn',{opacity:0,scale:0.8,duration:0.3,ease:'power2.in'});
-
-      // 2. Lanterns float upward with stagger (magical rise)
-      tl.to('.splash-lanterns .sl',{
-        y:'-=120',
-        opacity:0,
-        duration:0.8,
-        stagger:0.08,
-        ease:'power2.in'
-      },'-=0.1');
-
-      // 3. Main lantern rises and glows brighter
-      tl.to('.splash-lantern-main',{
-        y:-80,
-        opacity:0,
-        scale:1.3,
-        duration:0.7,
-        ease:'power2.in'
-      },'-=0.6');
-
-      // 4. Title & subtitle fade up
-      tl.to('.splash-title, .splash-sub',{
-        y:-30,
-        opacity:0,
-        duration:0.4,
-        ease:'power2.in'
-      },'-=0.5');
-
-      // 5. Stars fade
-      tl.to('.splash-stars',{opacity:0,duration:0.3},'-=0.3');
-
-      // 6. Whole splash slides up — content revealed
+      // Everything moves up at once — parallax layers for depth
       tl.to(splash,{
         yPercent:-100,
-        duration:0.9,
-        ease:'power3.inOut'
-      },'-=0.2');
+        duration:1.4,
+        ease:'power2.inOut'
+      },0);
+
+      // Lanterns rise faster (parallax — they're "closer")
+      tl.to('.splash-lanterns .sl',{
+        y:'-=200',
+        duration:1.4,
+        ease:'power2.inOut'
+      },0);
+
+      // Main lantern also rises faster + scales slightly
+      tl.to('.splash-lantern-main',{
+        y:'-=150',
+        scale:1.15,
+        duration:1.4,
+        ease:'power2.inOut'
+      },0);
+
+      // Text rises a bit faster than background
+      tl.to('.splash-title, .splash-sub, .splash-btn',{
+        y:'-=60',
+        duration:1.4,
+        ease:'power2.inOut'
+      },0);
     }
 
     function toggleMusic(){
