@@ -1854,20 +1854,38 @@
       }
       document.getElementById('splashBtn').disabled=true;
 
-      // GSAP moves the wrapper UP by splash height — looks like scrolling down
-      // translateY is GPU-accelerated = buttery smooth on mobile
+      // GSAP parallax descent — wrapper moves up, lanterns at different speeds
       var splashH=splash.offsetHeight;
-      gsap.to(wrap,{
-        y:-splashH,
-        duration:1.8,
-        ease:'power2.inOut',
+      var dur=1.8;
+      var tl=gsap.timeline({
         onComplete:function(){
-          // Remove splash & reset wrapper so page is normal
           splash.classList.add('gone');
           gsap.set(wrap,{y:0});
           document.body.style.overflow='';
         }
       });
+
+      // Main wrapper scrolls down (moves up)
+      tl.to(wrap,{y:-splashH,duration:dur,ease:'power2.inOut'},0);
+
+      // Parallax: each lantern moves extra based on its size
+      // Bigger = closer = moves faster past you
+      tl.to('.splash-lanterns .sl',{
+        y:function(i,el){
+          var w=parseInt(el.style.width)||20;
+          if(w>=28) return -180; // big/close — whoosh past
+          if(w>=20) return -100; // medium
+          return -40;            // small/far — barely moves
+        },
+        duration:dur,
+        ease:'power2.inOut'
+      },0);
+
+      // Main lantern rises faster (it's the closest one)
+      tl.to('.splash-lantern-main',{y:-200,scale:1.1,duration:dur,ease:'power2.inOut'},0);
+
+      // Text/button rise slightly faster than background
+      tl.to('.splash-title,.splash-sub,.splash-btn',{y:-60,duration:dur,ease:'power2.inOut'},0);
     }
     // Body overflow hidden — no scroll until animation completes
     document.body.style.overflow='hidden';
