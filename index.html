@@ -952,13 +952,14 @@
       transform: translateX(100%) skewY(-2deg);
     }
     /* Door edge gold trim */
-    .splash-door-left::after {
+    /* Door edges only visible during opening animation */
+    .splash-overlay.opening .splash-door-left::after {
       content: '';
       position: absolute;
       top: 0; right: 0; bottom: 0; width: 2px;
       background: linear-gradient(180deg, transparent 10%, rgba(251,191,36,0.4) 30%, rgba(251,191,36,0.6) 50%, rgba(251,191,36,0.4) 70%, transparent 90%);
     }
-    .splash-door-right::before {
+    .splash-overlay.opening .splash-door-right::before {
       content: '';
       position: absolute;
       top: 0; left: 0; bottom: 0; width: 2px;
