@@ -975,6 +975,7 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
   <a href="#main" class="skip-link">Saltar al contenido</a>
@@ -1862,6 +1863,7 @@
           splash.classList.add('gone');
           gsap.set(wrap,{y:0});
           document.body.style.overflow='';
+          initPageParallax();
         }
       });
 
@@ -1903,6 +1905,40 @@
         ytPlayer.playVideo();
         btn.classList.add('playing');btn.textContent='\u{1F3B6}';
       }
+    }
+
+    // ScrollTrigger parallax on page lanterns — init after splash is gone
+    function initPageParallax(){
+      if(typeof ScrollTrigger==='undefined') return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Glowing side lanterns — subtle parallax (move slower than scroll)
+      document.querySelectorAll('.lantern-glow').forEach(function(el,i){
+        gsap.to(el,{
+          y: (i%2===0) ? -40 : -25,
+          ease:'none',
+          scrollTrigger:{
+            trigger:el,
+            start:'top bottom',
+            end:'bottom top',
+            scrub:1.5
+          }
+        });
+      });
+
+      // Sky lanterns in hero — float upward as you scroll
+      document.querySelectorAll('.hero-scene .anim-float, .hero-scene .anim-float-slow').forEach(function(el,i){
+        gsap.to(el,{
+          y: -30 - (i*8),
+          ease:'none',
+          scrollTrigger:{
+            trigger:'.hero-scene',
+            start:'top bottom',
+            end:'bottom top',
+            scrub:2
+          }
+        });
+      });
     }
   </script>
 </body>
