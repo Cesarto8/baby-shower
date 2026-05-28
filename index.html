@@ -918,9 +918,93 @@
       0%, 100% { box-shadow: 0 2px 15px rgba(251,191,36,0.3); }
       50% { box-shadow: 0 2px 25px rgba(251,191,36,0.6); }
     }
+
+    /* Splash / entry screen */
+    .splash-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      background: linear-gradient(180deg, #0d0121 0%, #1a0533 30%, #2d1250 60%, #4c1d95 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .splash-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-lantern {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: lantern-drift 4s ease-in-out infinite;
+    }
+    .splash-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      color: #fde68a;
+      text-shadow: 0 0 15px rgba(251,191,36,0.4), 0 0 40px rgba(251,191,36,0.2);
+      margin-bottom: 0.3rem;
+    }
+    .splash-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      color: #d8b4fe;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .splash-btn {
+      background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05));
+      border: 1.5px solid rgba(251,191,36,0.5);
+      color: #fde68a;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.8rem 2.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: pulse-glow 2.5s ease-in-out infinite;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .splash-btn:active {
+      transform: scale(0.95);
+    }
+    .splash-stars {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 15% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 40% 20%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 25%, rgba(251,191,36,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 55% 40%, rgba(251,191,36,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 45%, rgba(251,191,36,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.3) 0%, transparent 100%);
+      animation: twinkle-stars 4s ease-in-out infinite alternate;
+    }
   </style>
 </head>
 <body>
+  <!-- Splash entry screen -->
+  <div class="splash-overlay" id="splashScreen">
+    <div class="splash-stars"></div>
+    <div class="splash-lantern">&#x1F3EE;</div>
+    <div class="splash-title">Baby Shower</div>
+    <div class="splash-sub">Emma Julieta</div>
+    <button class="splash-btn" id="splashBtn" onclick="enterSite()">Abrir invitaci&oacute;n &#x2728;</button>
+  </div>
+
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <div class="card" id="main" role="main">
@@ -1715,26 +1799,13 @@
     }
 
     // ===== YOUTUBE MUSIC =====
-    var ytPlayer=null,mPlaying=false,ytReady=false,autoStarted=false;
+    var ytPlayer=null,mPlaying=false,ytReady=false;
     var YT_VOL=15; // volume 0-100
 
     // Load YouTube IFrame API
     var tag=document.createElement('script');
     tag.src='https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
-
-    // Try to auto-start music on any user tap/click
-    function tryAutoStart(){
-      if(autoStarted||!ytReady)return;
-      autoStarted=true;
-      toggleMusic();
-      // Clean up listeners
-      document.removeEventListener('click',tryAutoStart,true);
-      document.removeEventListener('touchend',tryAutoStart,true);
-    }
-    // Use capturing phase + touchend (not touchstart) for best mobile compat
-    document.addEventListener('click',tryAutoStart,true);
-    document.addEventListener('touchend',tryAutoStart,true);
 
     window.onYouTubeIframeAPIReady=function(){
       ytPlayer=new YT.Player('yt-player-wrap',{
@@ -1760,6 +1831,23 @@
         }
       });
     };
+
+    // Enter site — triggered by splash button tap (direct user gesture)
+    function enterSite(){
+      // Start music immediately from user tap
+      if(ytReady && !mPlaying){
+        mPlaying=true;
+        ytPlayer.setVolume(YT_VOL);
+        ytPlayer.playVideo();
+        var btn=document.getElementById('musicBtn');
+        btn.classList.add('playing');btn.textContent='\u{1F3B6}';
+      }
+      // Hide splash
+      document.getElementById('splashScreen').classList.add('hidden');
+      document.body.style.overflow='';
+    }
+    // Prevent scroll while splash is visible
+    document.body.style.overflow='hidden';
 
     function toggleMusic(){
       var btn=document.getElementById('musicBtn');
