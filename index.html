@@ -99,8 +99,8 @@
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      mask-image: linear-gradient(180deg, black 0%, black 65%, rgba(0,0,0,0.4) 80%, transparent 95%);
-      -webkit-mask-image: linear-gradient(180deg, black 0%, black 65%, rgba(0,0,0,0.4) 80%, transparent 95%);
+      mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 8%, black 15%, black 75%, rgba(0,0,0,0.4) 88%, transparent 97%);
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 8%, black 15%, black 75%, rgba(0,0,0,0.4) 88%, transparent 97%);
     }
 
     .river-ripple {
@@ -283,7 +283,11 @@
       font-size: clamp(3rem, 12vw, 4.2rem);
       line-height: 0.9;
       color: #fde68a;
-      text-shadow: 0 2px 20px rgba(251,191,36,0.4);
+      text-shadow:
+        0 0 10px rgba(251,191,36,0.6),
+        0 0 30px rgba(251,191,36,0.4),
+        0 0 60px rgba(251,191,36,0.3),
+        0 0 100px rgba(251,191,36,0.15);
     }
 
     .hero-title-2 {
@@ -295,7 +299,11 @@
       font-size: clamp(3.2rem, 13vw, 4.5rem);
       line-height: 1;
       color: #fbbf24;
-      text-shadow: 0 2px 20px rgba(251,191,36,0.3);
+      text-shadow:
+        0 0 10px rgba(251,191,36,0.6),
+        0 0 30px rgba(251,191,36,0.4),
+        0 0 60px rgba(251,191,36,0.3),
+        0 0 100px rgba(251,191,36,0.15);
     }
 
     /* ===== INVITE TEXT ===== */
@@ -809,6 +817,26 @@
       margin-top: 0.5rem;
       letter-spacing: 0.05em;
     }
+
+    /* ===== MUSIC BUTTON ===== */
+    .music-btn {
+      position: fixed; bottom: 20px; right: 20px; z-index: 999;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(76,29,149,0.85), rgba(126,34,206,0.85));
+      border: 2px solid rgba(216,180,254,0.5);
+      color: #fde68a; font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 15px rgba(126,34,206,0.4);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      touch-action: manipulation;
+    }
+    .music-btn:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(126,34,206,0.5); }
+    .music-btn.playing { animation: pulse-glow 2s ease-in-out infinite; }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 2px 15px rgba(251,191,36,0.3); }
+      50% { box-shadow: 0 2px 25px rgba(251,191,36,0.6); }
+    }
   </style>
 </head>
 <body>
@@ -819,15 +847,25 @@
     <!-- ===== RIVER BACKGROUND (flows entire page) ===== -->
     <div class="river-bg" aria-hidden="true">
       <!-- Ambient glows -->
+      <div class="river-glow" style="width:90px;height:60px;top:12%;left:10%;animation-delay:2s;"></div>
+      <div class="river-glow" style="width:80px;height:50px;top:15%;right:15%;animation-delay:0.5s;"></div>
+      <div class="river-glow" style="width:100px;height:70px;top:22%;left:45%;animation-delay:1.2s;"></div>
       <div class="river-glow" style="width:120px;height:80px;top:28%;left:5%;animation-delay:0s;"></div>
       <div class="river-glow" style="width:100px;height:60px;top:36%;right:8%;animation-delay:1.5s;"></div>
+      <div class="river-glow" style="width:90px;height:55px;top:40%;left:30%;animation-delay:2.8s;"></div>
       <div class="river-glow" style="width:140px;height:90px;top:45%;left:60%;animation-delay:0.8s;"></div>
       <div class="river-glow" style="width:90px;height:50px;top:55%;left:15%;animation-delay:3s;"></div>
+      <div class="river-glow" style="width:100px;height:65px;top:60%;right:5%;animation-delay:1.8s;"></div>
       <div class="river-glow" style="width:110px;height:70px;top:65%;right:12%;animation-delay:2s;"></div>
+      <div class="river-glow" style="width:85px;height:55px;top:70%;left:50%;animation-delay:0.3s;"></div>
       <div class="river-glow" style="width:100px;height:60px;top:75%;left:30%;animation-delay:1s;"></div>
-      <div class="river-glow" style="width:80px;height:50px;top:85%;right:20%;animation-delay:2.5s;"></div>
+      <div class="river-glow" style="width:80px;height:50px;top:82%;right:20%;animation-delay:2.5s;"></div>
+      <div class="river-glow" style="width:90px;height:60px;top:88%;left:15%;animation-delay:1.5s;"></div>
 
       <!-- Water ripples scattered throughout -->
+      <div class="river-ripple" style="top:12%;animation-delay:2.5s;animation-duration:8s;"></div>
+      <div class="river-ripple" style="top:18%;animation-delay:0.8s;animation-duration:9.5s;"></div>
+      <div class="river-ripple" style="top:22%;animation-delay:1.5s;animation-duration:7.5s;"></div>
       <div class="river-ripple" style="top:25%;animation-delay:0s;animation-duration:7s;"></div>
       <div class="river-ripple" style="top:30%;animation-delay:1.2s;animation-duration:9s;"></div>
       <div class="river-ripple" style="top:35%;animation-delay:0.5s;animation-duration:8s;"></div>
@@ -844,118 +882,228 @@
       <div class="river-ripple" style="top:90%;animation-delay:1.3s;animation-duration:7s;"></div>
 
       <!-- Floating lanterns — left side -->
-      <div class="river-lantern" style="top:26%;left:6%;animation-delay:0.5s;animation-duration:7s;">
+      <div class="river-lantern" style="top:12%;left:8%;animation-delay:3.2s;animation-duration:9s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:11px;height:15px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:18%;left:20%;animation-delay:1.5s;animation-duration:7.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:34%;left:15%;animation-delay:2s;animation-duration:8.5s;">
+      <div class="river-lantern" style="top:24%;left:5%;animation-delay:0.5s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:30%;left:16%;animation-delay:2.8s;animation-duration:8s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:14px;height:19px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:43%;left:4%;animation-delay:0.8s;animation-duration:6.5s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:52%;left:12%;animation-delay:2.5s;animation-duration:7.5s;">
+      <div class="river-lantern" style="top:36%;left:3%;animation-delay:2s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:12px;height:16px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:61%;left:7%;animation-delay:1.2s;animation-duration:8s;">
+      <div class="river-lantern" style="top:41%;left:14%;animation-delay:0.8s;animation-duration:6.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:70%;left:18%;animation-delay:0.3s;animation-duration:6s;">
+      <div class="river-lantern" style="top:47%;left:7%;animation-delay:3.5s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:13px;height:17px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:53%;left:19%;animation-delay:2.5s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:12px;height:16px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:58%;left:4%;animation-delay:1.2s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:64%;left:12%;animation-delay:0.3s;animation-duration:6s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:14px;height:18px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:79%;left:5%;animation-delay:1.8s;animation-duration:7s;">
+      <div class="river-lantern" style="top:70%;left:18%;animation-delay:2.2s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:76%;left:6%;animation-delay:1.8s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:12px;height:16px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:88%;left:22%;animation-delay:2.8s;animation-duration:8s;">
+      <div class="river-lantern" style="top:82%;left:15%;animation-delay:0.6s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:89%;left:22%;animation-delay:2.8s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:13px;height:17px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
 
       <!-- Floating lanterns — right side -->
-      <div class="river-lantern" style="top:29%;right:10%;animation-delay:1.8s;animation-duration:8s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:37%;right:5%;animation-delay:0.3s;animation-duration:6.5s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body" style="width:14px;height:19px;"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:46%;right:15%;animation-delay:2.2s;animation-duration:7.5s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:54%;right:7%;animation-delay:1s;animation-duration:8.5s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body" style="width:12px;height:17px;"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:63%;right:12%;animation-delay:0.6s;animation-duration:6s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:72%;right:4%;animation-delay:2s;animation-duration:7s;">
-        <div class="river-lantern-top"></div>
-        <div class="river-lantern-body" style="width:14px;height:18px;"><div class="river-lantern-glow"></div></div>
-        <div class="river-lantern-reflect"></div>
-      </div>
-      <div class="river-lantern" style="top:81%;right:16%;animation-delay:1.5s;animation-duration:8.5s;">
+      <div class="river-lantern" style="top:10%;right:6%;animation-delay:0.8s;animation-duration:8s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:12px;height:16px;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:90%;right:8%;animation-delay:0.9s;animation-duration:7s;">
+      <div class="river-lantern" style="top:16%;right:18%;animation-delay:2.5s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
+      <div class="river-lantern" style="top:22%;right:4%;animation-delay:1.8s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:28%;right:14%;animation-delay:0.3s;animation-duration:6.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:14px;height:19px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:34%;right:8%;animation-delay:3s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:39%;right:20%;animation-delay:1.2s;animation-duration:8.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:11px;height:15px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:45%;right:5%;animation-delay:2.2s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:51%;right:16%;animation-delay:0.5s;animation-duration:6s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:12px;height:17px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:56%;right:7%;animation-delay:1s;animation-duration:8.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:14px;height:18px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:62%;right:13%;animation-delay:3.2s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:68%;right:3%;animation-delay:0.6s;animation-duration:6s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:74%;right:17%;animation-delay:2s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:14px;height:18px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:80%;right:9%;animation-delay:1.5s;animation-duration:8.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:12px;height:16px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:87%;right:20%;animation-delay:0.9s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:93%;right:6%;animation-delay:2.8s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:11px;height:15px;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
 
-      <!-- Floating lanterns — center (smaller, further away) -->
-      <div class="river-lantern" style="top:31%;left:40%;animation-delay:1.2s;animation-duration:9s;">
+      <!-- Floating lanterns — center (smaller, further away feeling) -->
+      <div class="river-lantern" style="top:14%;left:38%;animation-delay:2s;animation-duration:9.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:9px;height:12px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:20%;left:55%;animation-delay:0.4s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:10px;height:14px;opacity:0.22;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:27%;left:42%;animation-delay:1.2s;animation-duration:9s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:10px;height:14px;opacity:0.25;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:48%;left:55%;animation-delay:2.5s;animation-duration:8s;">
+      <div class="river-lantern" style="top:33%;left:60%;animation-delay:3s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:9px;height:12px;opacity:0.18;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:38%;left:35%;animation-delay:1.8s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:10px;height:13px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:58%;left:35%;animation-delay:0.7s;animation-duration:7.5s;">
+      <div class="river-lantern" style="top:44%;left:50%;animation-delay:0.6s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:11px;height:15px;opacity:0.25;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:68%;left:50%;animation-delay:1.8s;animation-duration:8.5s;">
+      <div class="river-lantern" style="top:49%;left:65%;animation-delay:2.5s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:10px;height:13px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:55%;left:38%;animation-delay:0.7s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:11px;height:15px;opacity:0.25;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:60%;left:52%;animation-delay:3.2s;animation-duration:9s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:9px;height:12px;opacity:0.18;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:66%;left:45%;animation-delay:1.8s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:10px;height:14px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:76%;left:42%;animation-delay:2.8s;animation-duration:7s;">
+      <div class="river-lantern" style="top:72%;left:58%;animation-delay:0.3s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:10px;height:13px;opacity:0.22;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:78%;left:40%;animation-delay:2.8s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:11px;height:15px;opacity:0.22;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:86%;left:58%;animation-delay:0.4s;animation-duration:9s;">
+      <div class="river-lantern" style="top:83%;left:62%;animation-delay:1.5s;animation-duration:8s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:9px;height:12px;opacity:0.18;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:88%;left:48%;animation-delay:0.4s;animation-duration:9s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body" style="width:10px;height:13px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:92%;left:35%;animation-delay:2.2s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body" style="width:10px;height:14px;opacity:0.2;"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
     </div>
@@ -1340,25 +1488,69 @@
 
     <!-- Pascal section -->
     <div class="pascal-section" aria-hidden="true">
-      <svg viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="60" cy="85" rx="32" ry="28" fill="#86efac"/>
-        <circle cx="60" cy="52" r="28" fill="#4ade80"/>
-        <circle cx="48" cy="46" r="10" fill="white"/>
-        <circle cx="72" cy="46" r="10" fill="white"/>
-        <circle cx="49" cy="46" r="5" fill="#1a1a2e"/>
-        <circle cx="73" cy="46" r="5" fill="#1a1a2e"/>
-        <circle cx="51" cy="44" r="2" fill="white" opacity="0.9"/>
-        <circle cx="75" cy="44" r="2" fill="white" opacity="0.9"/>
-        <path d="M53 62 Q60 68 67 62" stroke="#166534" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <circle cx="42" cy="58" r="5" fill="#fde68a" opacity="0.4"/>
-        <circle cx="78" cy="58" r="5" fill="#fde68a" opacity="0.4"/>
-        <path d="M92 85 Q105 72 100 58 Q95 48 87 55" stroke="#4ade80" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <ellipse cx="38" cy="110" rx="10" ry="6" fill="#4ade80"/>
-        <ellipse cx="82" cy="110" rx="10" ry="6" fill="#4ade80"/>
-        <circle cx="70" cy="28" r="6" fill="#f9a8d4"/>
-        <circle cx="70" cy="28" r="3" fill="#fde68a" opacity="0.6"/>
-        <circle cx="50" cy="30" r="4" fill="#c084fc" opacity="0.6"/>
-        <circle cx="50" cy="30" r="2" fill="#fde68a" opacity="0.5"/>
+      <svg viewBox="0 0 160 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Tail (curled) -->
+        <path d="M115 95 Q135 85 140 65 Q142 50 130 45 Q118 42 115 55 Q113 65 120 68" stroke="#3ec96a" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M115 95 Q135 85 140 65 Q142 50 130 45 Q118 42 115 55 Q113 65 120 68" stroke="#4ade80" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Body -->
+        <ellipse cx="70" cy="92" rx="38" ry="30" fill="#3ec96a"/>
+        <!-- Belly (lighter) -->
+        <ellipse cx="70" cy="97" rx="26" ry="20" fill="#6ee7a0" opacity="0.6"/>
+        <!-- Back legs -->
+        <ellipse cx="42" cy="118" rx="12" ry="7" fill="#3ec96a"/>
+        <ellipse cx="98" cy="118" rx="12" ry="7" fill="#3ec96a"/>
+        <!-- Front legs -->
+        <ellipse cx="48" cy="112" rx="8" ry="5" fill="#34b860" transform="rotate(-10 48 112)"/>
+        <ellipse cx="92" cy="112" rx="8" ry="5" fill="#34b860" transform="rotate(10 92 112)"/>
+        <!-- Toes -->
+        <circle cx="36" cy="122" r="2.5" fill="#34b860"/>
+        <circle cx="42" cy="124" r="2.5" fill="#34b860"/>
+        <circle cx="48" cy="122" r="2.5" fill="#34b860"/>
+        <circle cx="92" cy="122" r="2.5" fill="#34b860"/>
+        <circle cx="98" cy="124" r="2.5" fill="#34b860"/>
+        <circle cx="104" cy="122" r="2.5" fill="#34b860"/>
+        <!-- Head -->
+        <ellipse cx="70" cy="55" rx="30" ry="27" fill="#4ade80"/>
+        <!-- Head crest/ridge -->
+        <path d="M55 32 Q58 26 62 30 Q65 24 70 29 Q75 24 78 30 Q82 26 85 32" stroke="#34b860" stroke-width="2.5" fill="#3ec96a" stroke-linecap="round"/>
+        <!-- Snout bump -->
+        <ellipse cx="70" cy="62" rx="18" ry="10" fill="#4ade80"/>
+        <ellipse cx="70" cy="64" rx="14" ry="7" fill="#6ee7a0" opacity="0.4"/>
+        <!-- Nostrils -->
+        <circle cx="63" cy="58" r="1.5" fill="#2d9e50"/>
+        <circle cx="77" cy="58" r="1.5" fill="#2d9e50"/>
+        <!-- Eyes - big, expressive, cone-shaped -->
+        <ellipse cx="52" cy="47" rx="12" ry="13" fill="#4ade80"/>
+        <ellipse cx="88" cy="47" rx="12" ry="13" fill="#4ade80"/>
+        <ellipse cx="52" cy="47" rx="10" ry="11" fill="white"/>
+        <ellipse cx="88" cy="47" rx="10" ry="11" fill="white"/>
+        <!-- Pupils (looking forward) -->
+        <ellipse cx="55" cy="47" rx="5" ry="7" fill="#1a1a2e"/>
+        <ellipse cx="85" cy="47" rx="5" ry="7" fill="#1a1a2e"/>
+        <!-- Eye shine -->
+        <circle cx="57" cy="44" r="2.5" fill="white" opacity="0.9"/>
+        <circle cx="87" cy="44" r="2.5" fill="white" opacity="0.9"/>
+        <circle cx="54" cy="49" r="1.2" fill="white" opacity="0.5"/>
+        <circle cx="84" cy="49" r="1.2" fill="white" opacity="0.5"/>
+        <!-- Happy mouth -->
+        <path d="M60 66 Q70 74 80 66" stroke="#1a7a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Cheek blush -->
+        <ellipse cx="45" cy="60" rx="6" ry="4" fill="#f9a8d4" opacity="0.35"/>
+        <ellipse cx="95" cy="60" rx="6" ry="4" fill="#f9a8d4" opacity="0.35"/>
+        <!-- Spots on body -->
+        <circle cx="55" cy="85" r="4" fill="#34b860" opacity="0.5"/>
+        <circle cx="85" cy="88" r="3.5" fill="#34b860" opacity="0.5"/>
+        <circle cx="65" cy="100" r="3" fill="#34b860" opacity="0.4"/>
+        <circle cx="78" cy="95" r="2.5" fill="#34b860" opacity="0.4"/>
+        <!-- Flower on head -->
+        <circle cx="82" cy="32" r="7" fill="#f9a8d4" opacity="0.85"/>
+        <circle cx="82" cy="32" r="3.5" fill="#fde68a" opacity="0.7"/>
+        <circle cx="76" cy="28" r="4.5" fill="#c084fc" opacity="0.7"/>
+        <circle cx="76" cy="28" r="2" fill="#fde68a" opacity="0.5"/>
+        <!-- Little sparkles -->
+        <text x="25" y="40" font-size="8" opacity="0.4">&#x2728;</text>
+        <text x="110" y="55" font-size="7" opacity="0.3">&#x2728;</text>
+        <text x="40" y="135" font-size="6" opacity="0.3">&#x2728;</text>
       </svg>
     </div>
 
@@ -1384,11 +1576,7 @@
         <a href="#" class="gc-link" target="_blank" rel="noopener noreferrer">Ver Lista <span aria-hidden="true">&rarr;</span></a>
       </div>
 
-      <div class="gift-card">
-        <p class="gc-title">&#x1F381; Liverpool</p>
-        <p class="gc-desc">Mesa de regalos para nuestra princesita</p>
-        <a href="#" class="gc-link" target="_blank" rel="noopener noreferrer">Ver Mesa <span aria-hidden="true">&rarr;</span></a>
-      </div>
+
 
       <div class="gift-card">
         <p class="gc-title">&#x1F4B3; Transferencia / Tarjeta</p>
@@ -1486,6 +1674,8 @@
 
   </div>
 
+  <button class="music-btn" id="musicBtn" aria-label="Reproducir m&uacute;sica" onclick="toggleMusic()">&#x1F3B5;</button>
+
   <script>
     (function () {
       var d = new Date('2026-06-14T14:00:00');
@@ -1510,6 +1700,94 @@
       });
     }
 
+    // ===== MUSIC BOX (Disney-style) =====
+    var mCtx=null,mPlaying=false,mLoop=null;
+    var BT=0.48;
+
+    function mNote(freq,start,dur,vol,type){
+      if(!freq||!mCtx)return;
+      var o=mCtx.createOscillator(),g=mCtx.createGain();
+      o.type=type||'sine';o.frequency.value=freq;
+      g.gain.setValueAtTime(0,start);
+      g.gain.linearRampToValueAtTime(vol||0.1,start+0.015);
+      g.gain.exponentialRampToValueAtTime(0.001,start+dur);
+      o.connect(g);g.connect(mCtx.destination);
+      o.start(start);o.stop(start+dur+0.05);
+      // shimmer overtone
+      var o2=mCtx.createOscillator(),g2=mCtx.createGain();
+      o2.type='sine';o2.frequency.value=freq*2.997;
+      g2.gain.setValueAtTime(0,start);
+      g2.gain.linearRampToValueAtTime((vol||0.1)*0.18,start+0.01);
+      g2.gain.exponentialRampToValueAtTime(0.001,start+dur*0.6);
+      o2.connect(g2);g2.connect(mCtx.destination);
+      o2.start(start);o2.stop(start+dur+0.05);
+    }
+
+    function playArrangement(){
+      var t=mCtx.currentTime+0.15;
+      // Chord progression: C-G/B-Am-F-C-G-F-G-C (waltz 3/4)
+      var chords=[
+        [[262,330,392],[523,659,784]],  // C
+        [[247,294,392],[587,784,988]],  // G/B
+        [[220,262,330],[523,659,880]],  // Am
+        [[175,220,262],[440,523,698]],  // F
+        [[262,330,392],[523,659,784]],  // C
+        [[196,247,294],[587,784,988]],  // G
+        [[175,220,349],[440,698,523]],  // F
+        [[196,294,392],[587,784,1175]], // G
+        [[262,330,392],[523,659,1047]], // C (resolve)
+        [[262,330,392],[523,659,784]]   // C (end)
+      ];
+      // Melody: sweeping, emotional (note, beat, duration in beats)
+      var mel=[
+        [659,0,2],[784,2,1],[1047,3,2.5],[988,5.5,0.5],
+        [880,6,2],[784,8,1],[880,9,2],[784,11,1],
+        [659,12,2],[523,14,1],[587,15,2],[659,17,1],
+        [698,18,2.5],[880,20.5,0.5],[784,21,2],[698,23,1],
+        [659,24,2],[784,26,1],[1047,27,3],
+        [1175,30,2],[988,32,1],[784,33,2],[880,35,1],
+        [1047,36,2],[880,38,1],[698,39,2],[784,41,1],
+        [659,42,3],[523,45,1],[659,46,2.5],[0,48.5,1.5],
+        [784,50,2],[880,52,1],[1047,53,3],
+        [1175,56,1.5],[1047,57.5,1.5],[880,59,1]
+      ];
+      // Bass notes (one per chord, on beat 1)
+      var bassBeats=[0,6,12,18,24,30,36,42,48,54];
+      var bassNotes=[131,124,110,87,131,98,87,98,131,131];
+
+      // Play arpeggios (waltz pattern per chord, 6 beats each)
+      for(var c=0;c<chords.length;c++){
+        var base=c*6;
+        var lo=chords[c][0], hi=chords[c][1];
+        // Bass
+        mNote(bassNotes[c],t+base*BT,BT*4,0.06,'triangle');
+        // Arpeggio pattern: 1-3-5-3-5-3
+        var pat=[lo[0],lo[1],lo[2],lo[1],lo[2],lo[1]];
+        for(var p=0;p<6;p++){
+          mNote(pat[p],t+(base+p)*BT,BT*1.8,0.04,'sine');
+        }
+      }
+      // Play melody
+      for(var m=0;m<mel.length;m++){
+        if(mel[m][0])mNote(mel[m][0],t+mel[m][1]*BT,mel[m][2]*BT,0.13,'sine');
+      }
+      // Total duration
+      var total=60*BT*1000;
+      mLoop=setTimeout(function(){if(mPlaying)playArrangement();},total);
+    }
+
+    function toggleMusic(){
+      var btn=document.getElementById('musicBtn');
+      if(!mCtx)mCtx=new(window.AudioContext||window.webkitAudioContext)();
+      if(mPlaying){
+        mPlaying=false;clearTimeout(mLoop);mCtx.suspend();
+        btn.classList.remove('playing');btn.textContent='\u{1F3B5}';
+      }else{
+        mPlaying=true;
+        mCtx.resume().then(function(){playArrangement();});
+        btn.classList.add('playing');btn.textContent='\u{1F3B6}';
+      }
+    }
   </script>
 </body>
 </html>
