@@ -1715,13 +1715,26 @@
     }
 
     // ===== YOUTUBE MUSIC =====
-    var ytPlayer=null,mPlaying=false,ytReady=false,ytPendingPlay=false;
+    var ytPlayer=null,mPlaying=false,ytReady=false,autoStarted=false;
     var YT_VOL=45; // volume 0-100
 
     // Load YouTube IFrame API
     var tag=document.createElement('script');
     tag.src='https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
+
+    // Try to auto-start music on any user tap/click
+    function tryAutoStart(){
+      if(autoStarted||!ytReady)return;
+      autoStarted=true;
+      toggleMusic();
+      // Clean up listeners
+      document.removeEventListener('click',tryAutoStart,true);
+      document.removeEventListener('touchend',tryAutoStart,true);
+    }
+    // Use capturing phase + touchend (not touchstart) for best mobile compat
+    document.addEventListener('click',tryAutoStart,true);
+    document.addEventListener('touchend',tryAutoStart,true);
 
     window.onYouTubeIframeAPIReady=function(){
       ytPlayer=new YT.Player('yt-player-wrap',{
@@ -1738,19 +1751,8 @@
           onReady:function(e){
             ytReady=true;
             e.target.setVolume(YT_VOL);
-            // Auto-play on first user interaction
-            var autoStart=function(){
-              if(!mPlaying){toggleMusic();}
-              document.removeEventListener('click',autoStart);
-              document.removeEventListener('touchstart',autoStart);
-              document.removeEventListener('scroll',autoStart);
-            };
-            document.addEventListener('click',autoStart,{once:true});
-            document.addEventListener('touchstart',autoStart,{once:true});
-            document.addEventListener('scroll',autoStart,{once:true});
           },
           onStateChange:function(e){
-            // If video ends unexpectedly, restart
             if(e.data===YT.PlayerState.ENDED && mPlaying){
               ytPlayer.playVideo();
             }
