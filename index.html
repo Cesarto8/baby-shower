@@ -901,6 +901,11 @@
     .splash-overlay.gone {
       display: none;
     }
+    /* Pause ALL card animations while splash covers them — saves GPU */
+    .card { animation-play-state: paused; }
+    .card * { animation-play-state: paused; }
+    .splash-overlay.gone ~ .card { animation-play-state: running; }
+    .splash-overlay.gone ~ .card * { animation-play-state: running; }
 
     .splash-lanterns {
       position: absolute;
@@ -912,14 +917,12 @@
       position: absolute;
       animation: float var(--dur, 4s) ease-in-out infinite;
       animation-delay: var(--del, 0s);
-      will-change: transform;
     }
     .splash-lantern-main {
       margin-bottom: 1rem;
       animation: float 4s ease-in-out infinite;
       position: relative;
       z-index: 2;
-      will-change: transform;
     }
     .splash-lantern-main svg { width: 50px; height: auto; }
     .splash-title {
