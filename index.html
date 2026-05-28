@@ -907,21 +907,41 @@
       opacity: 0;
     }
 
-    /* Simple golden glow on open — fixed size, just fades in/out (no resize) */
-    .splash-glow {
+    /* Golden center seam — the magical light between doors */
+    .splash-seam {
       position: absolute;
-      top: 50%; left: 50%;
-      width: 100vw; height: 100vh;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(251,191,36,0.35) 0%, transparent 60%);
-      opacity: 0;
-      pointer-events: none;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(180deg, transparent 5%, rgba(251,191,36,0.3) 20%, rgba(251,191,36,0.6) 50%, rgba(251,191,36,0.3) 80%, transparent 95%);
       z-index: 1;
-      transition: opacity 0.5s ease;
+      transform: translateX(-50%);
+      transition: opacity 0.4s ease, width 0.8s ease;
     }
-    .splash-overlay.opening .splash-glow {
-      opacity: 1;
-      transition: opacity 0.3s ease 0s, opacity 0.8s ease 0.5s;
+    .splash-overlay.opening .splash-seam {
+      width: 60px;
+      opacity: 0;
+      background: linear-gradient(180deg, transparent 5%, rgba(251,191,36,0.5) 30%, rgba(251,191,36,0.8) 50%, rgba(251,191,36,0.5) 70%, transparent 95%);
+    }
+
+    /* Lightweight sparkles — no box-shadow, just opacity+transform */
+    .splash-sparkle {
+      position: absolute;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #fde68a;
+      opacity: 0;
+      z-index: 3;
+      top: 50%; left: 50%;
+      will-change: transform, opacity;
+    }
+    .splash-overlay.opening .splash-sparkle {
+      animation: sp-fly 0.9s ease-out forwards;
+    }
+    @keyframes sp-fly {
+      0% { transform: translate(0,0) scale(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.5); }
     }
 
     .splash-lantern {
@@ -966,7 +986,15 @@
   <div class="splash-overlay" id="splashScreen">
     <div class="splash-door splash-door-left"></div>
     <div class="splash-door splash-door-right"></div>
-    <div class="splash-glow"></div>
+    <!-- Golden light seam between doors -->
+    <div class="splash-seam"></div>
+    <!-- Lightweight sparkles (6, no box-shadow) -->
+    <div class="splash-sparkle" style="--dx:-80px;--dy:-120px;animation-delay:0.05s;"></div>
+    <div class="splash-sparkle" style="--dx:90px;--dy:-100px;animation-delay:0.1s;"></div>
+    <div class="splash-sparkle" style="--dx:-70px;--dy:80px;animation-delay:0.15s;"></div>
+    <div class="splash-sparkle" style="--dx:100px;--dy:60px;animation-delay:0.08s;"></div>
+    <div class="splash-sparkle" style="--dx:-20px;--dy:-140px;animation-delay:0s;"></div>
+    <div class="splash-sparkle" style="--dx:30px;--dy:130px;animation-delay:0.12s;"></div>
     <div class="splash-content">
       <div class="splash-lantern">&#x1F3EE;</div>
       <div class="splash-title">Baby Shower</div>
@@ -989,65 +1017,105 @@
       <div class="river-ripple" style="top:30%;opacity:0.05;"></div>
       <div class="river-ripple" style="top:60%;opacity:0.04;"></div>
 
-      <!-- Floating lanterns — left side (6) -->
-      <div class="river-lantern lantern-glow" style="top:15%;left:12%;animation-delay:1s;animation-duration:8s;--shine-dur:6s;--shine-delay:0s;">
+      <!-- Floating lanterns — left side (10) -->
+      <div class="river-lantern lantern-glow" style="top:12%;left:10%;animation-delay:1s;animation-duration:8s;--shine-dur:6s;--shine-delay:0s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:30%;left:6%;animation-delay:2.5s;animation-duration:7s;">
+      <div class="river-lantern" style="top:20%;left:18%;animation-delay:2.5s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern lantern-glow" style="top:48%;left:15%;animation-delay:0.5s;animation-duration:8.5s;--shine-dur:7s;--shine-delay:2s;">
+      <div class="river-lantern" style="top:28%;left:5%;animation-delay:0.5s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:62%;left:8%;animation-delay:3s;animation-duration:7.5s;">
+      <div class="river-lantern lantern-glow" style="top:37%;left:14%;animation-delay:3s;animation-duration:7.5s;--shine-dur:7s;--shine-delay:2s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:76%;left:18%;animation-delay:1.8s;animation-duration:6.5s;">
+      <div class="river-lantern" style="top:46%;left:7%;animation-delay:1.8s;animation-duration:6.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern lantern-glow" style="top:88%;left:10%;animation-delay:2.2s;animation-duration:8s;--shine-dur:5.5s;--shine-delay:3s;">
+      <div class="river-lantern lantern-glow" style="top:55%;left:16%;animation-delay:2.2s;animation-duration:8s;--shine-dur:5.5s;--shine-delay:3s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:64%;left:4%;animation-delay:0.8s;animation-duration:7s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:73%;left:12%;animation-delay:3.2s;animation-duration:8.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern lantern-glow" style="top:82%;left:8%;animation-delay:1.5s;animation-duration:7s;--shine-dur:6s;--shine-delay:1s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:91%;left:20%;animation-delay:2.8s;animation-duration:8s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
 
-      <!-- Floating lanterns — right side (6) -->
-      <div class="river-lantern" style="top:12%;right:8%;animation-delay:0.8s;animation-duration:7s;">
+      <!-- Floating lanterns — right side (10) -->
+      <div class="river-lantern" style="top:10%;right:8%;animation-delay:0.8s;animation-duration:7s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern lantern-glow" style="top:28%;right:16%;animation-delay:2s;animation-duration:8s;--shine-dur:6s;--shine-delay:1s;">
+      <div class="river-lantern lantern-glow" style="top:19%;right:17%;animation-delay:2s;animation-duration:8s;--shine-dur:6s;--shine-delay:1.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:44%;right:5%;animation-delay:1.2s;animation-duration:7.5s;">
+      <div class="river-lantern" style="top:27%;right:5%;animation-delay:1.2s;animation-duration:7.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern lantern-glow" style="top:60%;right:14%;animation-delay:3s;animation-duration:8.5s;--shine-dur:7s;--shine-delay:2.5s;">
+      <div class="river-lantern" style="top:36%;right:14%;animation-delay:3s;animation-duration:8.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:75%;right:7%;animation-delay:0.5s;animation-duration:6.5s;">
+      <div class="river-lantern lantern-glow" style="top:45%;right:7%;animation-delay:0.5s;animation-duration:7s;--shine-dur:7s;--shine-delay:3.5s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
       </div>
-      <div class="river-lantern" style="top:90%;right:18%;animation-delay:2.5s;animation-duration:7.5s;">
+      <div class="river-lantern" style="top:54%;right:18%;animation-delay:2.5s;animation-duration:6.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern lantern-glow" style="top:63%;right:4%;animation-delay:1.8s;animation-duration:8s;--shine-dur:5s;--shine-delay:0.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:72%;right:12%;animation-delay:0.3s;animation-duration:7.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern" style="top:81%;right:16%;animation-delay:2.2s;animation-duration:8.5s;">
+        <div class="river-lantern-top"></div>
+        <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
+        <div class="river-lantern-reflect"></div>
+      </div>
+      <div class="river-lantern lantern-glow" style="top:90%;right:6%;animation-delay:1s;animation-duration:7s;--shine-dur:6.5s;--shine-delay:2s;">
         <div class="river-lantern-top"></div>
         <div class="river-lantern-body"><div class="river-lantern-glow"></div></div>
         <div class="river-lantern-reflect"></div>
