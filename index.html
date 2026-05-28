@@ -892,11 +892,24 @@
     }
     .splash-overlay.hidden { display: none; }
 
-    .splash-lantern {
+    .splash-lanterns {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .splash-lanterns .sl {
+      position: absolute;
+      animation: float var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--del, 0s);
+    }
+    .splash-lantern-main {
       margin-bottom: 1rem;
       animation: float 4s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
     }
-    .splash-lantern svg { width: 50px; height: auto; }
+    .splash-lantern-main svg { width: 50px; height: auto; }
     .splash-title {
       font-family: 'Great Vibes', cursive;
       font-size: clamp(1.8rem, 6vw, 2.5rem);
@@ -951,7 +964,18 @@
   <!-- Splash entry screen -->
   <div class="splash-overlay" id="splashScreen">
     <div class="splash-stars"></div>
-    <div class="splash-lantern">
+    <!-- Floating lanterns in background -->
+    <div class="splash-lanterns">
+      <svg class="sl" style="width:28px;top:8%;left:12%;--dur:5s;--del:0s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="18" fill="#fbbf24" opacity="0.2"/><rect x="17" y="20" width="16" height="22" rx="4" fill="#fde68a" opacity="0.7" stroke="#fbbf24" stroke-width="0.6"/><rect x="20" y="16" width="10" height="4" rx="1.5" fill="#d8b4fe"/><line x1="25" y1="10" x2="25" y2="16" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+      <svg class="sl" style="width:35px;top:15%;right:15%;--dur:4.5s;--del:0.8s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="20" fill="#fbbf24" opacity="0.22"/><rect x="16" y="19" width="18" height="25" rx="5" fill="#fde68a" opacity="0.75" stroke="#fbbf24" stroke-width="0.7"/><rect x="19" y="14" width="12" height="5" rx="2" fill="#d8b4fe"/><line x1="25" y1="7" x2="25" y2="14" stroke="#d8b4fe" stroke-width="1"/><circle cx="25" cy="32" r="4" fill="#fbbf24" opacity="0.3"/></svg>
+      <svg class="sl" style="width:22px;top:25%;left:22%;--dur:5.5s;--del:1.5s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="15" fill="#fbbf24" opacity="0.15"/><rect x="19" y="23" width="12" height="16" rx="3" fill="#fde68a" opacity="0.6" stroke="#fbbf24" stroke-width="0.5"/><rect x="21" y="19" width="8" height="3.5" rx="1.5" fill="#d8b4fe"/><line x1="25" y1="14" x2="25" y2="19" stroke="#d8b4fe" stroke-width="0.7"/></svg>
+      <svg class="sl" style="width:30px;top:5%;left:55%;--dur:4s;--del:0.3s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="18" fill="#fbbf24" opacity="0.2"/><rect x="17" y="20" width="16" height="22" rx="4" fill="#fde68a" opacity="0.7" stroke="#fbbf24" stroke-width="0.6"/><rect x="20" y="16" width="10" height="4" rx="1.5" fill="#d8b4fe"/><line x1="25" y1="10" x2="25" y2="16" stroke="#d8b4fe" stroke-width="0.8"/><circle cx="25" cy="31" r="3" fill="#fbbf24" opacity="0.25"/></svg>
+      <svg class="sl" style="width:25px;top:20%;right:8%;--dur:5s;--del:2s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="16" fill="#fbbf24" opacity="0.18"/><rect x="18" y="22" width="14" height="19" rx="4" fill="#fde68a" opacity="0.65" stroke="#fbbf24" stroke-width="0.6"/><rect x="21" y="18" width="8" height="4" rx="1.5" fill="#d8b4fe"/><line x1="25" y1="12" x2="25" y2="18" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+      <svg class="sl" style="width:20px;top:35%;left:8%;--dur:4.5s;--del:1s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="14" fill="#fbbf24" opacity="0.12"/><rect x="20" y="24" width="10" height="14" rx="3" fill="#fde68a" opacity="0.55" stroke="#fbbf24" stroke-width="0.5"/><rect x="22" y="21" width="6" height="3" rx="1" fill="#d8b4fe"/><line x1="25" y1="16" x2="25" y2="21" stroke="#d8b4fe" stroke-width="0.6"/></svg>
+      <svg class="sl" style="width:32px;top:30%;right:20%;--dur:5.5s;--del:0.5s;" viewBox="0 0 50 70" fill="none"><circle cx="25" cy="35" r="20" fill="#fbbf24" opacity="0.2"/><rect x="16" y="19" width="18" height="25" rx="5" fill="#fde68a" opacity="0.7" stroke="#fbbf24" stroke-width="0.7"/><rect x="19" y="14" width="12" height="5" rx="2" fill="#d8b4fe"/><line x1="25" y1="7" x2="25" y2="14" stroke="#d8b4fe" stroke-width="1"/><circle cx="25" cy="32" r="4" fill="#fbbf24" opacity="0.3"/></svg>
+    </div>
+    <!-- Main center lantern -->
+    <div class="splash-lantern-main">
       <svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="25" cy="35" r="22" fill="#fbbf24" opacity="0.25"/>
         <rect x="15" y="18" width="20" height="28" rx="5" fill="#fde68a" opacity="0.9" stroke="#fbbf24" stroke-width="0.8"/>
