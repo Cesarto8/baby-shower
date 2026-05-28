@@ -924,20 +924,106 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 9999;
-      background: linear-gradient(180deg, #0d0121 0%, #1a0533 30%, #2d1250 60%, #4c1d95 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      pointer-events: auto;
     }
-    .splash-overlay.hidden {
+    .splash-overlay.opening { pointer-events: none; }
+    .splash-overlay.hidden { display: none; }
+
+    /* Two door halves */
+    .splash-door {
+      position: absolute;
+      top: 0; bottom: 0; width: 50%;
+      background: linear-gradient(180deg, #0d0121 0%, #1a0533 30%, #2d1250 60%, #4c1d95 100%);
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    .splash-door-left { left: 0; transform-origin: left center; }
+    .splash-door-right { right: 0; transform-origin: right center; }
+    .splash-overlay.opening .splash-door-left {
+      transform: translateX(-100%) skewY(2deg);
+    }
+    .splash-overlay.opening .splash-door-right {
+      transform: translateX(100%) skewY(-2deg);
+    }
+    /* Door edge gold trim */
+    .splash-door-left::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, transparent 10%, rgba(251,191,36,0.4) 30%, rgba(251,191,36,0.6) 50%, rgba(251,191,36,0.4) 70%, transparent 90%);
+    }
+    .splash-door-right::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, transparent 10%, rgba(251,191,36,0.4) 30%, rgba(251,191,36,0.6) 50%, rgba(251,191,36,0.4) 70%, transparent 90%);
+    }
+
+    /* Center content (above doors) */
+    .splash-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.5s ease, transform 0.8s ease;
+    }
+    .splash-overlay.opening .splash-content {
       opacity: 0;
-      visibility: hidden;
+      transform: scale(1.3);
+    }
+
+    /* Golden light flash on open */
+    .splash-flash {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251,191,36,0.6) 0%, rgba(251,191,36,0.2) 40%, transparent 70%);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .splash-overlay.opening .splash-flash {
+      animation: flash-burst 1.2s ease-out forwards;
+    }
+    @keyframes flash-burst {
+      0% { width: 0; height: 0; opacity: 0; }
+      20% { width: 150vw; height: 150vh; opacity: 1; }
+      100% { width: 200vw; height: 200vh; opacity: 0; }
+    }
+
+    /* Sparkle particles */
+    .splash-sparkles {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      z-index: 3;
       pointer-events: none;
     }
+    .sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #fde68a;
+      box-shadow: 0 0 6px rgba(251,191,36,0.8);
+      opacity: 0;
+    }
+    .splash-overlay.opening .sparkle { animation: sparkle-fly 1.4s ease-out forwards; }
+
+    @keyframes sparkle-fly {
+      0% { transform: translate(0,0) scale(0); opacity: 0; }
+      15% { opacity: 1; transform: translate(var(--sx), var(--sy)) scale(1); }
+      100% { opacity: 0; transform: translate(var(--ex), var(--ey)) scale(0); }
+    }
+
     .splash-lantern {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -973,13 +1059,12 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
-    .splash-btn:active {
-      transform: scale(0.95);
-    }
+    .splash-btn:active { transform: scale(0.95); }
     .splash-stars {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
+      z-index: 0;
       background-image:
         radial-gradient(1px 1px at 15% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
         radial-gradient(1.5px 1.5px at 40% 20%, rgba(251,191,36,0.5) 0%, transparent 100%),
@@ -998,11 +1083,33 @@
 <body>
   <!-- Splash entry screen -->
   <div class="splash-overlay" id="splashScreen">
-    <div class="splash-stars"></div>
-    <div class="splash-lantern">&#x1F3EE;</div>
-    <div class="splash-title">Baby Shower</div>
-    <div class="splash-sub">Emma Julieta</div>
-    <button class="splash-btn" id="splashBtn" onclick="enterSite()">Abrir invitaci&oacute;n &#x2728;</button>
+    <!-- Door halves -->
+    <div class="splash-door splash-door-left"><div class="splash-stars"></div></div>
+    <div class="splash-door splash-door-right"><div class="splash-stars" style="transform:scaleX(-1);"></div></div>
+    <!-- Golden flash -->
+    <div class="splash-flash"></div>
+    <!-- Sparkle particles -->
+    <div class="splash-sparkles">
+      <div class="sparkle" style="--sx:-30px;--sy:-60px;--ex:-120px;--ey:-180px;animation-delay:0.1s;"></div>
+      <div class="sparkle" style="--sx:40px;--sy:-50px;--ex:150px;--ey:-160px;animation-delay:0.15s;"></div>
+      <div class="sparkle" style="--sx:-50px;--sy:20px;--ex:-170px;--ey:80px;animation-delay:0.05s;"></div>
+      <div class="sparkle" style="--sx:30px;--sy:40px;--ex:140px;--ey:140px;animation-delay:0.2s;"></div>
+      <div class="sparkle" style="--sx:-10px;--sy:-70px;--ex:-50px;--ey:-200px;animation-delay:0s;"></div>
+      <div class="sparkle" style="--sx:60px;--sy:10px;--ex:180px;--ey:30px;animation-delay:0.12s;"></div>
+      <div class="sparkle" style="--sx:-60px;--sy:-30px;--ex:-190px;--ey:-90px;animation-delay:0.08s;"></div>
+      <div class="sparkle" style="--sx:20px;--sy:60px;--ex:90px;--ey:190px;animation-delay:0.18s;"></div>
+      <div class="sparkle" style="--sx:-40px;--sy:50px;--ex:-160px;--ey:170px;animation-delay:0.06s;"></div>
+      <div class="sparkle" style="--sx:50px;--sy:-40px;--ex:170px;--ey:-130px;animation-delay:0.22s;"></div>
+      <div class="sparkle" style="--sx:0px;--sy:-80px;--ex:10px;--ey:-220px;animation-delay:0.03s;width:5px;height:5px;"></div>
+      <div class="sparkle" style="--sx:-70px;--sy:0px;--ex:-200px;--ey:-20px;animation-delay:0.16s;width:3px;height:3px;"></div>
+    </div>
+    <!-- Content -->
+    <div class="splash-content">
+      <div class="splash-lantern">&#x1F3EE;</div>
+      <div class="splash-title">Baby Shower</div>
+      <div class="splash-sub">Emma Julieta</div>
+      <button class="splash-btn" id="splashBtn" onclick="enterSite()">Abrir invitaci&oacute;n &#x2728;</button>
+    </div>
   </div>
 
   <a href="#main" class="skip-link">Saltar al contenido</a>
@@ -1834,6 +1941,7 @@
 
     // Enter site — triggered by splash button tap (direct user gesture)
     function enterSite(){
+      var splash=document.getElementById('splashScreen');
       // Start music immediately from user tap
       if(ytReady && !mPlaying){
         mPlaying=true;
@@ -1842,9 +1950,12 @@
         var btn=document.getElementById('musicBtn');
         btn.classList.add('playing');btn.textContent='\u{1F3B6}';
       }
-      // Hide splash
-      document.getElementById('splashScreen').classList.add('hidden');
-      document.body.style.overflow='';
+      // Trigger door opening animation
+      splash.classList.add('opening');
+      // Allow scroll after doors start opening
+      setTimeout(function(){ document.body.style.overflow=''; }, 400);
+      // Remove splash from DOM after animation completes
+      setTimeout(function(){ splash.classList.add('hidden'); }, 1500);
     }
     // Prevent scroll while splash is visible
     document.body.style.overflow='hidden';
